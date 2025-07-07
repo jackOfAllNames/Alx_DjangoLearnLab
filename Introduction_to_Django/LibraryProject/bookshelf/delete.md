@@ -1,6 +1,6 @@
-# Create a Book instance
+# Delete the Book instance
 
-This shows how the book is created in the Django shell.
+This removes the book and shows the table is empty.
 
 ## Command
 ```python

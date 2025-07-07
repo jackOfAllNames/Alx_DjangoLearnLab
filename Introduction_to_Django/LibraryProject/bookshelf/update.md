@@ -1,6 +1,6 @@
-# Create a Book instance
+# Update the Book title
 
-This shows how the book is created in the Django shell.
+This changes the title and saves it.
 
 ## Command
 ```python

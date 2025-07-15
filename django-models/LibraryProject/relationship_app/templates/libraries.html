@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Library Detail</title>
+  </head>
+  <body>
+    <h1>Library: {{ library.name }}</h1>
+    <h2>Books in Library:</h2>
+    <ul>
+      {% for library in libraries %}
+      <li>
+        {{ library.name }}
+        <ul>
+          {% for book in library.books.all %}
+          <li>{{ book.title }}</li>
+          {% empty %}
+          <li>No books yet</li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% empty %}
+      <li>No libraries found</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

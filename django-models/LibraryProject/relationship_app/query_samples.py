@@ -51,12 +51,14 @@ for library in all_books:
         print("  -", book.title)
 
 # List all books in a library.
-university_book = Library.objects.get(name=library_name)
+# Library.objects.get(name=library_name)
+university_book = Library.objects.get(name="University Library")
 
 for library in university_book:
     for book in library.books.all():
         print("  -", book.title)
 
 # Retrieve the librarian for a library.
+# ["Librarian.objects.get(library="]
 librarian1 = Librarian.objects.get(name="Helen Ade")
 print(librarian1)

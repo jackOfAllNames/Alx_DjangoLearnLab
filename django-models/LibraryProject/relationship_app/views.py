@@ -18,7 +18,7 @@ def libraries_list(request):
 
 def library_details(request, pk):
     library = Library.objects.get(pk=pk)
-    return render(request, 'library_detail.html', {'library': library})
+    return render(request, 'relationship_app/library_detail.html', {'library': library})
 
 class LibraryDetailView(DetailView):
     model = Library

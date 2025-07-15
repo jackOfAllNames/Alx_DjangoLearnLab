@@ -59,6 +59,6 @@ for library in university_book:
         print("  -", book.title)
 
 # Retrieve the librarian for a library.
-# ["Librarian.objects.get(library="]
+# "Librarian.objects.get(library="
 librarian1 = Librarian.objects.get(name="Helen Ade")
 print(librarian1)

@@ -39,11 +39,18 @@ Librarian.objects.create(name="Helen Ade", library=lib3)
 wole_book = Book.objects.filter(author__name="Wole Soyinka")
 print(wole_book)
 
-# List all books in a library.
+# List all books in all library.
 all_books = Library.objects.all()
 
 for library in all_books:
     print(library.name)
+    for book in library.books.all():
+        print("  -", book.title)
+
+# List all books in a library.
+university_book = Library.objects.filter(name="University Library")
+
+for library in university_book:
     for book in library.books.all():
         print("  -", book.title)
 

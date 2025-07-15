@@ -48,7 +48,7 @@ for library in all_books:
         print("  -", book.title)
 
 # List all books in a library.
-university_book = Library.objects.get(name="University Library")
+university_book = Library.objects.get(name=library_name)
 
 for library in university_book:
     for book in library.books.all():

@@ -42,4 +42,9 @@ print(wole_book)
 # List all books in a library.
 all_books = Library.objects.all()
 
+for library in all_books:
+    print(library.name)
+    for book in library.books.all():
+        print("  -", book.title)
+
 # Retrieve the librarian for a library.

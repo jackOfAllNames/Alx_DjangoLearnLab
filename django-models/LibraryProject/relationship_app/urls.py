@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
-from .views import display_books, list_books, library_details
+from .views import display_books, library_details
+from .views import list_books
 from .views import LibraryDetailView
 
 urlpatterns = [

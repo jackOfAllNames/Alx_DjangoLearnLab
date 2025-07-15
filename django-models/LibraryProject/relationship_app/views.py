@@ -12,7 +12,7 @@ def display_books(request):
     }
     return render(request, "relationship_app/list_books.html", context)
 
-def libraries_list(request):
+def list_books(request):
     libraries = Library.objects.prefetch_related('books')
     return render(request, 'libraries.html', {'libraries': libraries})
 
@@ -22,5 +22,5 @@ def library_details(request, pk):
 
 class LibraryDetailView(DetailView):
     model = Library
-    template_name = "library_detail.html"
+    template_name = "relationship_app/library_detail.html"
     queryset = Library.objects.prefetch_related("books__author")

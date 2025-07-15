@@ -33,3 +33,10 @@ lib3.books.add(b1, b3)
 Librarian.objects.create(name="Grace Okoro", library=lib1)
 Librarian.objects.create(name="Ahmed Yusuf", library=lib2)
 Librarian.objects.create(name="Helen Ade", library=lib3)
+
+# Query all books by a specific author
+# Use a join with a double‑underscore lookup
+wole_book = Book.objects.filter(author__name="Wole Soyinka")
+print(wole_book)
+# List all books in a library.
+# Retrieve the librarian for a library.

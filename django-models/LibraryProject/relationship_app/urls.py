@@ -3,7 +3,7 @@ from django.urls import path
 from .views import display_books, library_details, register, home
 from .views import list_books, CustomLoginView, CustomLogoutView
 from django.contrib.auth.views import LoginView, LogoutView
-import views
+from . import views
 from .views import LibraryDetailView
 
 urlpatterns = [

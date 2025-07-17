@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic.detail import DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
@@ -29,7 +29,7 @@ class LibraryDetailView(DetailView):
     template_name = "relationship_app/library_detail.html"
     queryset = Library.objects.prefetch_related("books__author")
 
-def register_view(request):
+def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -45,3 +45,6 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     template_name = 'relationship_app/logout.html'
+
+def home(request):
+    return HttpResponse(f"Hello, {request.user.username}!" if request.user.is_authenticated else "Welcome Guest")

@@ -1,11 +1,11 @@
 from django.contrib.auth import login
 from django.views.generic.detail import DetailView
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import user_passes_test, login_required
 from .models import Book
-from .models import Library
+from .models import Library, UserProfile
 from .forms import RegisterForm
 
 # Create your views here.
@@ -50,19 +50,26 @@ class CustomLogoutView(LogoutView):
 def home(request):
     return HttpResponse(f"Hello, {request.user.username}!" if request.user.is_authenticated else "Welcome Guest")
 
-def role_required(role):
-    def decorator(user):
-        return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == role
-    return user_passes_test(decorator)
+def is_admin(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
 
-@role_required('Admin')
+def is_librarian(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+
+def is_member(user):
+    return hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+
+@login_required
+@user_passes_test(is_admin)
 def admin_view(request):
-    return render(request, 'admin_view.html')
+    return render(request, 'relationship_app/admin_view.html')
 
-@role_required('Librarian')
+@login_required
+@user_passes_test(is_librarian)
 def librarian_view(request):
-    return render(request, 'librarian_view.html')
+    return render(request, 'relationship_app/librarian_view.html')
 
-@role_required('Member')
+@login_required
+@user_passes_test(is_member)
 def member_view(request):
-    return render(request, 'member_view.html')
+    return render(request, 'relationship_app/member_view.html')

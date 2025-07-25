@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-8(hbw-m&$ou0g$_rir(3_6ze(6*c1l!ve(-@29^d50n+9n_i!m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
@@ -54,6 +54,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'csp.middleware.CSPMiddleware',
 ]
+
+CONTENT_SECURITY_POLICY = {
+    'DIRECTIVES': {
+        'default-src': ("'self'"),
+        'script-src': ("'self'"),
+        'style-src': ("'self'"),
+    }
+}
 
 ROOT_URLCONF = 'LibraryProject.urls'
 

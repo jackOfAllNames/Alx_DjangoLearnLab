@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from bookshelf.views import example_form_view, book_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,6 @@ urlpatterns = [
     path('accounts/profile/',
              TemplateView.as_view(template_name='accounts/profile.html'),
              name='profile'),
+    path('example-form/', example_form_view, name='example_form'),
+    path('book-list/', book_list, name='book_list'),
 ]

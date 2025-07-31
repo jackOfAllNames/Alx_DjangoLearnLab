@@ -2,8 +2,11 @@ from django.shortcuts import render, HttpResponse
 from .serializers import BookSerializer, RegisterSerializer
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework import generics, viewsets
 from .models import Book
 
@@ -37,3 +40,13 @@ class CustomAuthToken(ObtainAuthToken):
             'user_id': token.user_id,
             'username': token.user.username
         })
+
+
+# class MyAPIView(APIView):
+#     authentication_classes = [TokenAuthentication]
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request):
+#         return Response({
+#             'message': f'Hello, {request.user.username}, you are authenticated!',
+#         })

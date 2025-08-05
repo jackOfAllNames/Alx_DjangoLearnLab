@@ -12,16 +12,11 @@ class ListAuthors(generics.ListAPIView):
     serializer_class = AuthorSerializer
 
 class ListView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-    def get_queryset(self):
-        queryset = self.queryset.all()
-        publication_year_params = self.request.query_params.get('publication_year', None)
-        if publication_year_params:
-            queryset = queryset.filter(publication_year=publication_year_params)
-        return queryset
+    filterset_fields = ['publication_year']
 
 class DetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()

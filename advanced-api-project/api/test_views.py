@@ -1,7 +1,7 @@
 from rest_framework.test import APIRequestFactory
 from django.test import TestCase
 from .models import Author, Book
-from .views import ListView, CreateView
+from .views import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
 class BookTestCases(TestCase):
@@ -32,4 +32,26 @@ class BookTestCases(TestCase):
 
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.data['publication_year'], 2003)
+    
+    def test_get_book_details(self):
+        request = self.factory.get('books/<int:pk>/')
+        view = DetailView.as_view()
+        response = view(request, pk=3)
+        
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['publication_year'], 2006)
+    
+    def test_no_book_details(self):
+        request = self.factory.get('books/<int:pk>/')
+        view = DetailView.as_view()
+        response = view(request, pk=5)
+        
+        self.assertEqual(response.status_code, 404)
 
+    def test_update_book(self):
+        request = self.factory.put('books/update/<int:pk>/', {"title": "Purple Hibiscus", "publication_year" : 2001, "author" : 3}, format="json")
+        view = UpdateView.as_view()
+        response = view(request, pk=3)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['author'], 3)

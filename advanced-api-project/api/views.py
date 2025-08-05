@@ -14,6 +14,13 @@ class ListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
+    def get_queryset(self):
+        queryset = self.queryset.all()
+        publication_year_params = self.request.query_params.get('publication_year', None)
+        if publication_year_params:
+            queryset = queryset.filter(publication_year=publication_year_params)
+        return queryset
+
 class DetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer

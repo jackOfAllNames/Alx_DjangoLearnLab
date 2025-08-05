@@ -55,3 +55,12 @@ class BookTestCases(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['author'], 3)
+
+    def test_delete_book(self):
+        book = Book.objects.create(title="Purple Hibiscus", publication_year=2003, author_id=3)
+
+        request = self.factory.delete('books/delete/<int:pk>/')
+        view = DeleteView.as_view()
+        response = view(request, pk=book.id)
+
+        self.assertEqual(response.status_code, 204)

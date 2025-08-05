@@ -16,7 +16,8 @@ class ListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-    filterset_fields = ['publication_year']
+    filterset_fields = ['publication_year', 'title', 'author']
+    search_fields = ['title']
 
 class DetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()

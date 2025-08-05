@@ -1,10 +1,9 @@
-from rest_framework.test import APIRequestFactory
-from django.test import TestCase
+from rest_framework.test import APIRequestFactory, APITestCase
 from .models import Author, Book
 from .views import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
-class BookTestCases(TestCase):
+class BookTestCases(APITestCase):
 
     def setUp(self):
         self.factory = APIRequestFactory()

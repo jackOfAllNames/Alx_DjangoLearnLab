@@ -1,4 +1,5 @@
 from rest_framework.test import APIRequestFactory, APITestCase
+from rest_framework import status
 from .models import Author, Book
 from .views import ListView, CreateView, UpdateView, DeleteView, DetailView
 
@@ -20,7 +21,7 @@ class BookTestCases(APITestCase):
         view = ListView.as_view()
         response = view(request)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 3)
         self.assertEqual(response.data[1]['title'], "Death and the King's Horseman")
 
@@ -29,7 +30,7 @@ class BookTestCases(APITestCase):
         view = CreateView.as_view()
         response = view(request)
 
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['publication_year'], 2003)
     
     def test_get_book_details(self):
@@ -37,7 +38,7 @@ class BookTestCases(APITestCase):
         view = DetailView.as_view()
         response = view(request, pk=3)
         
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['publication_year'], 2006)
     
     def test_no_book_details(self):
@@ -45,14 +46,14 @@ class BookTestCases(APITestCase):
         view = DetailView.as_view()
         response = view(request, pk=5)
         
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_update_book(self):
         request = self.factory.put('books/update/<int:pk>/', {"title": "Purple Hibiscus", "publication_year" : 2001, "author" : 3}, format="json")
         view = UpdateView.as_view()
         response = view(request, pk=3)
 
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['author'], 3)
 
     def test_delete_book(self):
@@ -62,4 +63,4 @@ class BookTestCases(APITestCase):
         view = DeleteView.as_view()
         response = view(request, pk=book.id)
 
-        self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)

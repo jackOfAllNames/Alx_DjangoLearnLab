@@ -1,6 +1,8 @@
-from rest_framework.test import APIRequestFactory, APITestCase
+from rest_framework.test import APIRequestFactory, APITestCase, force_authenticate
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .models import Author, Book
+from django.contrib.auth.models import User
 from .views import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 
@@ -8,6 +10,8 @@ class BookTestCases(APITestCase):
 
     def setUp(self):
         self.factory = APIRequestFactory()
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='olaitan', password='Vnp-1234')
         Author.objects.create(name="Chinua Achebe")
         Author.objects.create(name="Wole Soyinka")
         Author.objects.create(name="Chimamanda Ngozi Adichie")
@@ -18,8 +22,12 @@ class BookTestCases(APITestCase):
 
     def test_list_books(self):
         request = self.factory.get('books/')
+        force_authenticate(request, user=self.user)
+
         view = ListView.as_view()
+        view.cls.permission_classes = [IsAuthenticated]
         response = view(request)
+
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 3)

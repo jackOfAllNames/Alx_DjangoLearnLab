@@ -3,6 +3,7 @@ from django.views.generic import CreateView, TemplateView
 from .forms import CustomUserRegistrationForm
 from django.urls import reverse_lazy
 
+
 class HomeView(TemplateView):
     template_name = 'blog/index.html'
 
@@ -10,3 +11,8 @@ class HomeView(TemplateView):
 class SignUpView(CreateView):
     form_class = CustomUserRegistrationForm
     success_url = reverse_lazy('login')
+    template_name = 'blog/signup.html'
+
+
+class LoginView(TemplateView):
+    template_name = 'blog/login.html'

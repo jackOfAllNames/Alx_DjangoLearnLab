@@ -1,0 +1,31 @@
+<h1>Book List</h1>
+
+  <table border="1" cellpadding="10">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Published Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+        <tr>
+          <td>{{ book.title }}</td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.published_date }}</td>
+          <td>
+            <a href="{% url 'view_book' book.id %}">View</a> |
+            <a href="{% url 'edit_book' book.id %}">Edit</a> |
+            <a href="{% url 'delete_book' book.id %}">Delete</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4">No books found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <br>
+  <a href="{% url 'add_book' %}">Add New Book</a>

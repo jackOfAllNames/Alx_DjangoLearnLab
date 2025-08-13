@@ -1,3 +1,4 @@
+{% extends "blog/_base.html" %} {% block content %}
 <h1>Welcome to the Blogging home!</h1>
 {% if user.is_authenticated %}
 <p>Hello, {{ user.username }}!</p>
@@ -6,8 +7,8 @@
   <input type="submit" value="Logout" />
 </form>
 {% else %}
-<p>
+<!-- <p>
   <a href="{% url 'login' %}">Login</a> |
   <a href="{% url 'register' %}">Register</a>
-</p>
-{% endif %}
+</p> -->
+{% endif %} {% endblock %}

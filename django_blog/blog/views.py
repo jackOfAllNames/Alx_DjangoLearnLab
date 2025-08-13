@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, TemplateView
+from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserRegistrationForm
 from django.urls import reverse_lazy
 
@@ -14,5 +15,11 @@ class SignUpView(CreateView):
     template_name = 'registration/signup.html'
 
 
-class LoginView(TemplateView):
+class LogInView(LoginView):
     template_name = 'registration/login.html'
+    next_page = reverse_lazy('home')
+
+
+class LogOutView(LogoutView):
+    next_page = reverse_lazy('home')
+    template_name = 'registration/logged_out.html'

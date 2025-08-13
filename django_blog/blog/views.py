@@ -11,8 +11,8 @@ class HomeView(TemplateView):
 class SignUpView(CreateView):
     form_class = CustomUserRegistrationForm
     success_url = reverse_lazy('login')
-    template_name = 'blog/signup.html'
+    template_name = 'registration/signup.html'
 
 
 class LoginView(TemplateView):
-    template_name = 'blog/login.html'
+    template_name = 'registration/login.html'

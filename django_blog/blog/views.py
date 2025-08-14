@@ -5,7 +5,7 @@ from .forms import CustomUserRegistrationForm, UserProfileUpdateForm
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .models import Post
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 class HomeView(TemplateView):
@@ -70,9 +70,13 @@ class ListPostsView(ListView):
         return Post.objects.filter(author=self.request.user).order_by('-published_date')
 
 
-class DeletePostView(DeleteView):
+class DeletePostView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = reverse_lazy('posts')
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
 
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user)

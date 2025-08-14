@@ -13,7 +13,7 @@ class HomeView(TemplateView):
 class SignUpView(CreateView):
     form_class = CustomUserRegistrationForm
     success_url = reverse_lazy('login')
-    template_name = 'blog/signup.html'
+    template_name = 'blog/register.html'
 
 
 class LogInView(LoginView):

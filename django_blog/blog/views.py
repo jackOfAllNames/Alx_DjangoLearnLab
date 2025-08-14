@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, TemplateView, UpdateView
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserRegistrationForm, UserProfileUpdateForm
 from django.urls import reverse_lazy
@@ -51,6 +51,7 @@ def ProfileView(request):
     }
     return render(request, 'registration/profile.html', context)
 
+
 class PostCreateView(CreateView):
     model = Post
     fields = ['title', 'content']
@@ -59,3 +60,8 @@ class PostCreateView(CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class ListPostsView(ListView):
+    model = Post
+    context_object_name = 'posts'

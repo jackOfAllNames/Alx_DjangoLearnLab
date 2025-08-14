@@ -1,0 +1,16 @@
+{% extends "blog/_base.html" %} {% block content %}
+<h2>All Posts</h2>
+<ul>
+  {% for post in posts %}
+  <li>
+    <a href="">{{ post.title }}</a>
+    by {{ post.author }} on {{ post.published_date|date:"F j, Y" }} |
+    <a href="">Edit</a> |
+    <a href="">Delete</a>
+  </li>
+  {% empty %}
+  <li>No posts available.</li>
+  {% endfor %}
+</ul>
+<a href="{% url 'post_create' %}">Create New Post</a>
+{% endblock %}

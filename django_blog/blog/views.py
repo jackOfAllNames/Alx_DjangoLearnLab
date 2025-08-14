@@ -81,3 +81,16 @@ class DeletePostView(DeleteView):
 class DetailPostView(DetailView):
     model = Post
     context_object_name = 'post'
+
+
+class UpdatePostView(UpdateView):
+    model = Post
+    fields = ['title', 'content']
+    success_url = reverse_lazy('posts')
+
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)

@@ -9,6 +9,7 @@ urlpatterns = [
     path('logout/', LogOutView.as_view(), name='logout'),
     path('register/', SignUpView.as_view(), name='register'),
 
+    # Post-related URLs
     path('posts/', ListPostsView.as_view(), name='posts'),
     path('post/new/', PostCreateView.as_view(), name='post_create'),
     path('post/<int:pk>/', DetailPostView.as_view(), name='post_detail'),

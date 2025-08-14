@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView, DetailView
-from django.contrib.auth.views import LoginView, LogoutView
-from .forms import CustomUserRegistrationForm, UserProfileUpdateForm
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-from .models import Post
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView, DetailView
+
+from .models import Post
+from .forms import CustomUserRegistrationForm, UserProfileUpdateForm
 
 
 class HomeView(TemplateView):

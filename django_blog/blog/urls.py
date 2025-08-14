@@ -1,5 +1,6 @@
 from django.urls import path, include
-from .views import HomeView, SignUpView, LogInView, LogOutView, ProfileUpdateView, ProfileView
+from .views import HomeView, SignUpView, LogInView, LogOutView, ProfileView
+from .views import PostCreateView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
@@ -7,8 +8,9 @@ urlpatterns = [
     path('logout/', LogOutView.as_view(), name='logout'),
     path('register/', SignUpView.as_view(), name='register'),
     path('posts/', LogOutView.as_view(), name='posts'),
-    # path('profile/', ProfileUpdateView.as_view(), name='profile'),
     path('profile/', ProfileView, name='profile'),
+
+    path('posts/new/', PostCreateView.as_view(), name='post_create'),
 
     # path('accounts/', include('django.contrib.auth.urls')),
     # path('accounts/register/', SignUpView.as_view(), name='signup'),

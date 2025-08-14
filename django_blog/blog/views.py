@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserRegistrationForm, UserProfileUpdateForm
 from django.urls import reverse_lazy
@@ -76,3 +76,8 @@ class DeletePostView(DeleteView):
 
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user)
+
+
+class DetailPostView(DetailView):
+    model = Post
+    context_object_name = 'post'

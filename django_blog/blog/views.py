@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, TemplateView, UpdateView, ListView
+from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import CustomUserRegistrationForm, UserProfileUpdateForm
 from django.urls import reverse_lazy
@@ -65,3 +65,14 @@ class PostCreateView(CreateView):
 class ListPostsView(ListView):
     model = Post
     context_object_name = 'posts'
+
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user).order_by('-published_date')
+
+
+class DeletePostView(DeleteView):
+    model = Post
+    success_url = reverse_lazy('posts')
+
+    def get_queryset(self):
+        return Post.objects.filter(author=self.request.user)

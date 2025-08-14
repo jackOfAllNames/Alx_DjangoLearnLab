@@ -6,7 +6,7 @@
     <a href="">{{ post.title }}</a>
     by {{ post.author }} on {{ post.published_date|date:"F j, Y" }} |
     <a href="">Edit</a> |
-    <a href="">Delete</a>
+    <a href="{% url 'post_delete' post.pk%}">Delete</a>
   </li>
   {% empty %}
   <li>No posts available.</li>

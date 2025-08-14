@@ -10,8 +10,8 @@ urlpatterns = [
     path('register/', SignUpView.as_view(), name='register'),
 
     path('posts/', ListPostsView.as_view(), name='posts'),
-    path('posts/new/', PostCreateView.as_view(), name='post_create'),
-    path('posts/<int:pk>/', DetailPostView.as_view(), name='post_detail'),
+    path('post/new/', PostCreateView.as_view(), name='post_create'),
+    path('post/<int:pk>/', DetailPostView.as_view(), name='post_detail'),
     path('post/<int:pk>/update/', UpdatePostView.as_view(), name='post_update'),
     path('post/<int:pk>/delete/', DeletePostView.as_view(), name='post_delete'),
 ]

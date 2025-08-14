@@ -2,13 +2,12 @@
 <h1>Welcome to the Blogging home!</h1>
 {% if user.is_authenticated %}
 <p>Hello, {{ user.username }}!</p>
+<p>
+  You can
+  <a href="{% url 'profile' %}">update your profile information here.</a>.
+</p>
 <form action="{% url 'logout' %}" method="post">
   {% csrf_token %}
   <input type="submit" value="Logout" />
 </form>
-{% else %}
-<!-- <p>
-  <a href="{% url 'login' %}">Login</a> |
-  <a href="{% url 'register' %}">Register</a>
-</p> -->
 {% endif %} {% endblock %}

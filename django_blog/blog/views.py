@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, TemplateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
-from .forms import CustomUserRegistrationForm
+from .forms import CustomUserRegistrationForm, UserProfileUpdateForm
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
@@ -34,3 +34,17 @@ class ProfileUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user 
+
+
+def ProfileView(request):
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = UserProfileUpdateForm(instance=request.user)
+    context = {
+        'form': form
+    }
+    return render(request, 'blog/profile.html', context)

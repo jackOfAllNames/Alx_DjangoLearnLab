@@ -1,3 +1,4 @@
+from django.db.models import Q
 from taggit.forms import TagWidget
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy, reverse
@@ -71,7 +72,15 @@ class ListPostsView(ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        return Post.objects.all().order_by('-published_date')
+        queryset = Post.objects.all().order_by('-published_date')
+        q = self.request.GET.get('q')
+        if q:
+            queryset = queryset.filter(
+                Q(title__icontains=q) |
+                Q(content__icontains=q) |
+                Q(tags__name__icontains=q)
+            ).distinct()
+        return queryset
 
 
 class DeletePostView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

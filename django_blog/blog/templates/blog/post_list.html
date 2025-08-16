@@ -1,7 +1,15 @@
 {% extends "blog/_base.html" %} {% block content %}
 
 <h2>All Posts</h2>
-
+<form method="get" action="{% url 'posts' %}">
+  <input
+    type="text"
+    name="q"
+    placeholder="Search posts..."
+    value="{{ request.GET.q }}"
+  />
+  <button type="submit">Search</button>
+</form>
 {% for post in posts %}
 <h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
 <p><strong>Author:</strong> {{ post.author }}</p>

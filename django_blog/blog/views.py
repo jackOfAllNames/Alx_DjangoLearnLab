@@ -89,7 +89,7 @@ class DetailPostView(DetailView):
     context_object_name = 'post'
 
 
-class UpdatePostView(UpdateView):
+class UpdatePostView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
     success_url = reverse_lazy('posts')

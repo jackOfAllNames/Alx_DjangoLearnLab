@@ -1,3 +1,4 @@
+<!-- prettier-ignore-file -->
 {% extends "blog/_base.html" %} {% block content %}
 <h2>{{ post.title }}</h2>
 <p><strong>Author:</strong> {{ post.author }}</p>
@@ -5,7 +6,8 @@
   <strong>Published:</strong> {{ post.published_date|date:"F j, Y, g:i a" }}
 </p>
 <p>{{ post.content }}</p>
+{% if user.is_authenticated %} {% if user == post.author %}
 <a href="{% url 'post_update' post.pk %}">Edit</a> |
-<a href="{% url 'post_delete' post.pk %}">Delete</a> |
+<a href="{% url 'post_delete' post.pk %}">Delete</a> | {% endif %} {% endif %}
 <a href="{% url 'posts' %}">Back to List</a>
 {% endblock %}

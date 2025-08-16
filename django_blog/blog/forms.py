@@ -1,7 +1,8 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from .models import Comment, Post
+from taggit.forms import TagWidget
 from django.contrib.auth.models import User
-from .models import Comment
+from django.contrib.auth.forms import UserCreationForm
 
 class CustomUserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -29,3 +30,12 @@ class CommentForm(forms.ModelForm):
         if len(content) > 2000:
             raise forms.ValidationError("Comment is too long.")
         return content
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']
+        widgets = {
+            'tags': TagWidget(),
+        }

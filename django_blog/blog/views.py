@@ -1,5 +1,6 @@
-from django.urls import reverse_lazy, reverse
+from taggit.forms import TagWidget
 from django.contrib.auth.models import User
+from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
@@ -8,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, TemplateView, UpdateView, ListView, DeleteView, DetailView
 
 from .models import Post, Comment
-from .forms import CustomUserRegistrationForm, UserProfileUpdateForm, CommentForm
+from .forms import CustomUserRegistrationForm, UserProfileUpdateForm, CommentForm, PostForm
 
 
 class HomeView(TemplateView):
@@ -57,7 +58,7 @@ def ProfileView(request):
 
 class PostCreateView(CreateView):
     model = Post
-    fields = ['title', 'content', 'tags']
+    form_class = PostForm
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):

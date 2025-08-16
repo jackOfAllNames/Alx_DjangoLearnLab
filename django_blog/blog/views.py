@@ -57,7 +57,7 @@ def ProfileView(request):
 
 class PostCreateView(CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'tags']
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):

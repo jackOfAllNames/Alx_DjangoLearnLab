@@ -10,4 +10,30 @@
 <a href="{% url 'post_update' post.pk %}">Edit</a> |
 <a href="{% url 'post_delete' post.pk %}">Delete</a> | {% endif %} {% endif %}
 <a href="{% url 'posts' %}">Back to List</a>
-{% endblock %}
+<hr />
+<h3>Comments</h3>
+<!-- Adding the comment section -->
+<ul>
+  {% for comment in post.comments.all %}
+  <li>
+    <strong>{{ comment.author }}:</strong> {{ comment.content }}
+    <small>({{ comment.created_at|date:"F j, Y H:i" }})</small>
+    <!-- prettier-ignore -->
+    {% if user == comment.author %} |
+    <a href="{% url 'comment_update' comment.pk %}">Edit</a> |
+    <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
+    {% endif %}
+  </li>
+  {% empty %}
+  <li>No comments yet.</li>
+  {% endfor %}
+</ul>
+{% if user.is_authenticated %}
+<h4>Add a Comment</h4>
+<form method="post" action="{% url 'create_comment' post.pk %}">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Post Comment</button>
+</form>
+{% else %}
+<p><a href="{% url 'login' %}">Login</a> to comment.</p>
+{% endif %} {% endblock %}

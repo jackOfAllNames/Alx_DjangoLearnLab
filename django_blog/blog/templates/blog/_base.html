@@ -28,7 +28,14 @@
     <footer>
       <p>&copy; 2024 Django Blog</p>
     </footer>
-
+    <form
+      id="logout-form"
+      action="{% url 'logout' %}"
+      method="post"
+      style="display: none"
+    >
+      {% csrf_token %}
+    </form>
     <script src="{% static 'js/scripts.js' %}"></script>
   </body>
 </html>

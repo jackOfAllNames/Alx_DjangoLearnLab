@@ -1,0 +1,93 @@
+{% extends "blog/_base.html" %} {% block content %}
+<div class="max-w-md mx-auto">
+  <div
+    class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+  >
+    <div
+      class="bg-gradient-to-r from-blue-50 to-purple-50 px-8 py-6 border-b border-gray-100"
+    >
+      <h2 class="text-2xl font-bold text-gray-900 text-center">
+        This is Login Page
+      </h2>
+    </div>
+
+    <div class="p-8">
+      <form method="post" action="{% url 'login' %}" class="space-y-6">
+        {% csrf_token %}
+        <div class="space-y-6">{{ form.as_p }}</div>
+
+        <div class="pt-6 border-t border-gray-100">
+          <button
+            type="submit"
+            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Style the Django form fields */
+  .content p {
+    margin-bottom: 1rem;
+  }
+
+  .content label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+  }
+
+  .content input[type="text"],
+  .content input[type="email"],
+  .content input[type="password"],
+  .content textarea,
+  .content select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
+    background-color: #f9fafb;
+    transition: all 0.2s ease;
+  }
+
+  .content input[type="text"]:focus,
+  .content input[type="email"]:focus,
+  .content input[type="password"]:focus,
+  .content textarea:focus,
+  .content select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .content textarea {
+    resize: none;
+    min-height: 120px;
+  }
+
+  .content .errorlist {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .content .errorlist li {
+    display: flex;
+    align-items: center;
+  }
+
+  .content .errorlist li:before {
+    content: "⚠️";
+    margin-right: 0.25rem;
+  }
+</style>
+{% endblock %}

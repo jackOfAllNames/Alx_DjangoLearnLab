@@ -5,6 +5,7 @@ from .views import PostCreateView, ListPostsView, DeletePostView, DetailPostView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('account/', include('django.contrib.auth.urls')),
     path('profile/', ProfileView, name='profile'),
     path('login/', LogInView.as_view(), name='login'),
     path('logout/', LogOutView.as_view(), name='logout'),

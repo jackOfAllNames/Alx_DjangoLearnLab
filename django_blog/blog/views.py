@@ -69,7 +69,7 @@ class ListPostsView(ListView):
     context_object_name = 'posts'
 
     def get_queryset(self):
-        return Post.objects.filter(author=self.request.user).order_by('-published_date')
+        return Post.objects.all().order_by('-published_date')
 
 
 class DeletePostView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

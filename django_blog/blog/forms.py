@@ -20,4 +20,12 @@ class UserProfileUpdateForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['post', 'author', 'content']
+        fields = ['content']
+    
+    def clean_content(self):
+        content = self.cleaned_data.get('content')
+        if not content:
+            raise forms.ValidationError("Content cannot be empty.")
+        if len(content) > 2000:
+            raise forms.ValidationError("Comment is too long.")
+        return content

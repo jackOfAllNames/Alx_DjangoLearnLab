@@ -33,7 +33,7 @@ class LogOutView(LogoutView):
     template_name = 'blog/logged_out.html'
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     fields = ['username', 'email', 'first_name', 'last_name']
     template_name = 'blog/profile.html'

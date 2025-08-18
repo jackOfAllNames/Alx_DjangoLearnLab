@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'rest_framework',
+    'rest_framework.authtoken',
     'accounts',
 ]
 

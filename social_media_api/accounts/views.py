@@ -1,3 +1,6 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 
-# Create your views here.
+def HomeView(request):
+    return JsonResponse({"message": "Welcome to the Social Media API!"})
+    

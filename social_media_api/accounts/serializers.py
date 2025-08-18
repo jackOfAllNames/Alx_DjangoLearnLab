@@ -5,6 +5,7 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'bio', 'profile_picture', 'followers', 'password']
@@ -17,6 +18,5 @@ class UserSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             bio=validated_data.get('bio', ''),
         )
-        user.set_password(validated_data['password'])
         user.save()
         return user

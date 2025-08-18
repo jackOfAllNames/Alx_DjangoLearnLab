@@ -6,6 +6,7 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+    # Token.objects.create
     password = serializers.CharField()
     class Meta:
         model = User

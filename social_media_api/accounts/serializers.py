@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'followers')
 
     def create(self, validated_data):
-        user = User(
+        user = User.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
             bio=validated_data.get('bio', ''),

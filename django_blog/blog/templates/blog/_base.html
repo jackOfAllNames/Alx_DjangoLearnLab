@@ -1,33 +1,82 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Django Blog{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: "#eff6ff",
+                500: "#3b82f6",
+                600: "#2563eb",
+                700: "#1d4ed8",
+                900: "#1e3a8a",
+              },
+            },
+          },
+        },
+      };
+    </script>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
-  <body>
-    <header>
-      <nav>
-        <ul>
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'posts' %}">Blog Posts</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'register' %}">Register</a></li>
+  <body
+    class="min-h-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex flex-col"
+  >
+    <header class="bg-white shadow-lg border-b border-gray-200">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ul class="flex items-center justify-center space-x-8 py-4">
+          <li>
+            <a
+              href="{% url 'home' %}"
+              class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-gray-50"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'posts' %}"
+              class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-gray-50"
+              >Blog Posts</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'login' %}"
+              class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-gray-50"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'register' %}"
+              class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >Register</a
+            >
+          </li>
         </ul>
       </nav>
     </header>
 
-    <div class="content">
+    <div
+      class="content flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8"
+    >
       {% block content %}
       <!-- Page-specific content goes here -->
       {% endblock %}
     </div>
 
-    <footer>
-      <p>&copy; 2024 Django Blog</p>
+    <footer class="bg-gray-900 text-white mt-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <p class="text-center text-gray-300">&copy; 2024 Django Blog</p>
+      </div>
     </footer>
+
     <form
       id="logout-form"
       action="{% url 'logout' %}"

@@ -1,5 +1,6 @@
 from django.db import models
 from rest_framework import serializers
+from django.conf import settings
 
 
 class Post(models.Model):
@@ -24,3 +25,10 @@ class Comment(models.Model):
         return f'Comment by {self.author.username} on {self.post.title}'
     
     
+class Like(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="likes")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("user", "post")

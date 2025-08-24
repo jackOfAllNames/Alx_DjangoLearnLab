@@ -8,6 +8,8 @@ from rest_framework.response import Response
 
 from .serializers import UserSerializer, EmptySerializer
 from .models import CustomUser
+from posts.models import Post
+from posts.serializers import PostSerializer
 
 
 User = get_user_model()
@@ -78,3 +80,15 @@ class UnfollowUserView(generics.GenericAPIView):
 
         request.user.profile.following.remove(user_to_unfollow.profile)
         return Response({"message": f"You unfollowed {user_to_unfollow.username}"}, status=status.HTTP_200_OK)
+
+
+class FeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        following_users = self.request.user.following.all()
+
+        users_to_include = list(following_users) + [self.request.user]
+
+        return Post.objects.filter(author__in=users_to_include).order_by('-created_at')

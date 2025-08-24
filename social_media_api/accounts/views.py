@@ -92,4 +92,4 @@ class FeedView(generics.ListAPIView):
 
         users_to_include = list(following_users) + [self.request.user]
 
-        return Post.objects.filter(author__in=users_to_include).order_by('-created_at')
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')

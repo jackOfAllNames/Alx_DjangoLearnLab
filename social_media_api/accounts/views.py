@@ -83,6 +83,7 @@ class UnfollowUserView(generics.GenericAPIView):
 
 
 class FeedView(generics.ListAPIView):
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
 

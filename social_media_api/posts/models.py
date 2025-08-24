@@ -1,4 +1,5 @@
 from django.db import models
+from rest_framework import serializers
 
 
 class Post(models.Model):
@@ -21,3 +22,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Comment by {self.author.username} on {self.post.title}'
+    
+    

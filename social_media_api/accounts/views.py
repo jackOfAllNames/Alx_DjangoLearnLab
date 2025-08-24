@@ -49,6 +49,7 @@ class LoginToken(ObtainAuthToken):
 
 
 class FollowUserView(generics.GenericAPIView):
+    queryset = CustomUser.objects.all()
     serializer_class = EmptySerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -83,7 +84,6 @@ class UnfollowUserView(generics.GenericAPIView):
 
 
 class FeedView(generics.ListAPIView):
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
